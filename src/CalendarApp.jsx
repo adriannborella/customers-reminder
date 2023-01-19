@@ -1,14 +1,16 @@
 import React from "react";
-import { CustomNavBar } from "./ui";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CustomerPage } from "./pages/customers";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./router/AppRouter";
+import { Provider } from "react-redux";
+import { store } from "./store/";
 
 export default function CalendarApp() {
   return (
-    <div className="container">
-      <CustomNavBar />
-      <hr />
-      <CustomerPage></CustomerPage>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRouter></AppRouter>
+      </BrowserRouter>
+    </Provider>
   );
 }

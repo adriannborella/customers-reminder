@@ -3,34 +3,40 @@ import { Button, Form, Modal } from "react-bootstrap";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useCustomerStore } from "../../../hooks";
 
-export function CustomerModal({
-  showModal = false,
-  handleClose,
-  onSaveForm,
-  record,
-}) {
-  const [activeRecord, setActiveRecord] = useState(record);
-  const { first_name, last_name, birth_date } = activeRecord;
+export function CustomerModal() {
+  const { showModal, activeRecord, onCancelForm, onSaveRecord } =
+    useCustomerStore();
+
+  const [newRecord, setNewActiveRecord] = useState(activeRecord);
+  const { first_name, last_name, birth_date } = newRecord;
 
   useEffect(() => {
-    setActiveRecord(record);
-  }, [record]);
+    if (activeRecord !== {}) {
+      setNewActiveRecord({
+        ...activeRecord,
+        birth_date: activeRecord.birth_date,
+      });
+    }
+  }, [activeRecord]);
 
   const onHandleSave = () => {
-    const newRecord = {
-      ...activeRecord,
-      birth_date: activeRecord.birth_date.getTime(),
-    };
-    onSaveForm(newRecord);
+    console.log("Guardando");
+    onSaveRecord(newRecord);
   };
 
   const onChangeInput = (property, target) => {
-    setActiveRecord({
-      ...activeRecord,
+    setNewActiveRecord({
+      ...newRecord,
       [property]: target.value,
     });
   };
+
+  const handleClose = () => {
+    onCancelForm();
+  };
+
   return (
     <>
       <Modal show={showModal} onHide={handleClose}>
@@ -61,7 +67,7 @@ export function CustomerModal({
             <DatePicker
               selected={birth_date}
               onChange={(date) =>
-                setActiveRecord({ ...activeRecord, birth_date: date })
+                setNewActiveRecord({ ...newRecord, birth_date: date })
               }
               className="form-control"
             />

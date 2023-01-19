@@ -2,10 +2,13 @@ import React from "react";
 import { Button, Table } from "react-bootstrap";
 import { BsPersonXFill, BsPencilFill } from "react-icons/bs";
 import Swal from "sweetalert2";
+import { useCustomerStore } from "../../../hooks";
 
-export function CustomerTable({ onEditCustomer, records, onDeleteRecord }) {
+export function CustomerTable() {
+  const { records, onDeleteRecord, onEditRecord } = useCustomerStore();
+
   const onEditButton = (record) => {
-    onEditCustomer(record);
+    onEditRecord(record.id);
   };
 
   const onDeleteButton = (id) => {
