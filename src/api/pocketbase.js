@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase('http://129.151.117.160:9097');
 
 export const getData = async () => {
     const result = await pb.collection('customers').getList(1, 50, {});

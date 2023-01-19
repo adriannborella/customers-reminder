@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { CustomerTable, CustomerModal } from "./components";
 import Button from "react-bootstrap/Button";
 import { BsPersonPlusFill } from "react-icons/bs";
-import { usePocketBase } from "../hooks/usePocketBase";
+import { usePocketBase } from "../../hooks/usePocketBase";
 
 export function CustomerPage() {
   const [show, setShow] = useState(false);
   const {
     data,
-    GetAll,
     NewRecord,
     UpdateRecord,
     DeleteRecord,
